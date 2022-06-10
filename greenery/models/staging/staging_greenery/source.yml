@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+
+  - name: greenery # name of the source 
+    schema: public # this is the schema our raw data lives in dbt_alicia_b
+    database: dbt # this is the name of our database
+    tables:
+      - name: addresses       
+      - name: events    
+      - name: users                 
+      - name: orders           
+      - name: order_items           
+      - name: products           
+      - name: promos                                        
