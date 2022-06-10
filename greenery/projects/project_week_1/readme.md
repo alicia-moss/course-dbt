@@ -1,16 +1,19 @@
 **1. How many users do we have?**
+
  130 total users
 ~~~sql
 SELECT count(*) FROM dbt_alicia_b.stg_users;
 ~~~
 
 **2. On average, how many orders do we receive per hour?**
+
 15 orders per hour on average
 ~~~sql
 select count(*)/24 from dbt_alicia_b.stg_orders;
 ~~~
 
 **3. On average, how long does an order take from being placed to being delivered?**
+
 3 days 21:24:11
 ~~~sql
 select time_to_delivery/tot_deliveries
@@ -24,8 +27,11 @@ from(
 ~~~
 
 **4. How many users have only made one purchase? Two purchases? Three+ purchases?**
-1 order | 25
-2 orders | 28
+
+1 order | 25 ,
+
+2 orders | 28 ,
+
 3+ orders | 71
 ~~~sql
 select order_tots, count(user_id) from
@@ -43,6 +49,7 @@ order by order_tots;
 ~~~
 
 **5. On average, how many unique sessions do we have per hour?**
+
 24 sessions on average
 ~~~sql
 --simple version:
