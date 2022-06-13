@@ -7,9 +7,18 @@ SELECT count(*) FROM dbt_alicia_b.stg_users;
 
 **2. On average, how many orders do we receive per hour?**
 
-15 orders per hour on average
+7.5 orders per hour on average
 ~~~sql
-select count(*)/24 from dbt_alicia_b.stg_orders;
+select avg(order_count) avg_orders
+from
+(
+  select
+  date_trunc('hour', created_at) AS order_hour, 
+  count (distinct order_id) AS order_count
+  from dbt_alicia_b.stg_orders
+  group by 1
+  order by 1
+) a;
 ~~~
 
 **3. On average, how long does an order take from being placed to being delivered?**
@@ -50,19 +59,16 @@ order by order_tots;
 
 **5. On average, how many unique sessions do we have per hour?**
 
-24 sessions on average
+16 sessions on average
 ~~~sql
---simple version:
-  select (count (distinct session_id))/24 session_cnt
-  from dbt_alicia_b.stg_events;
-
--- fancy version:
-select session_cnt/distinct_hour tot_sessions
+select avg(session_cnt) avg_sessions
 from
 (
-  select count(distinct extract(hour from created_at)) distinct_hour,
+  select
+  date_trunc('hour', created_at) AS session_hour, 
   count (distinct session_id) session_cnt
   from dbt_alicia_b.stg_events
+  group by 1
 ) a;
 ~~~
 
