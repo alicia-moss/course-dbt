@@ -7,6 +7,6 @@
 SELECT
 order_id, 
 product_id, 
+order_id || product_id AS surrogate_key,
 quantity
-status
 FROM  {{ source('greenery', 'order_items') }}

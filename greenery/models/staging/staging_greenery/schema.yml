@@ -18,6 +18,14 @@ models:
         tests:
           - unique
           - not_null
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: created_at
+        tests:
+          - before_current_timestamp
   - name: stg_orders
     description: "Orders dbt model"
     columns:
@@ -26,14 +34,40 @@ models:
         tests:
           - unique
           - not_null
+      - name: user_id
+        tests:
+          - relationships: 
+              to: ref('stg_users')
+              field: user_id          
+      - name: address_id
+        tests:
+          - relationships: 
+              to: ref('stg_addresses')
+              field: address_id 
+      - name: promo_id
+        tests:
+          - relationships: 
+              to: ref('stg_promos')
+              field: promo_id               
+      - name: created_at
+        tests: 
+          - before_current_timestamp         
   - name: stg_order_items
     description: "Order items dbt model"
     columns:
-      - name: order_id
+      - name: surrogate_key
         description: "The primary key for this table"
         tests:
           - unique
-          - not_null  
+          - not_null
+      - name: order_id
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id           
+      - name: quantity
+        tests: 
+           - positive_values 
   - name: stg_products
     description: "Products dbt model"
     columns:
@@ -42,6 +76,9 @@ models:
         tests:
           - unique
           - not_null
+      - name: price
+        tests: 
+          - positive_values
   - name: stg_promos
     description: "Promos dbt model"
     columns:
@@ -49,7 +86,11 @@ models:
         description: "The primary key for this table"
         tests:
           - unique
-          - not_null          
+          - not_null   
+      - name: status
+        tests:
+          - accepted_values:
+             values: ['inactive','active']                    
   - name: stg_users
     description: "Users dbt model"
     columns:
@@ -58,3 +99,8 @@ models:
         tests:
           - unique
           - not_null
+      - name: address_id
+        tests:
+          - relationships: 
+              to: ref('stg_addresses')
+              field: address_id
