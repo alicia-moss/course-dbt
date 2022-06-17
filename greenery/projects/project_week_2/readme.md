@@ -3,16 +3,15 @@ Repeat rate: 0.7984 or about 80%
 
 ~~~sql
 with order_number_summary as (
-select (sum(case when user_order_count >=2 then 1 else 0 end))::numeric total_customers_two_or_more_orders
+select 
+  (sum(case when user_order_count >=2 then 1 else 0 end))::numeric total_customers_two_or_more_orders
 , (count(distinct customer_id))::numeric total_customers
-FROM
+from
 fact_user_orders)
 
-select 
-*,
-(total_customers_two_or_more_orders/total_customers)::numeric(10,4) repeat_rate
-, 'test' tst
-from order_number_summarys
+select
+  (total_customers_two_or_more_orders/total_customers)::numeric(10,4) repeat_rate
+from order_number_summary
 ~~~
 
 **What are good indicators of a user who will likely purchase again? What about indicators of users who are likely NOT to purchase again? If you had more data, what features would you want to look into to answer this question?**
@@ -37,7 +36,7 @@ from order_number_summarys
 
 **Marts**
 - *core/intermediate/dim_addresses.sql* - Added for easy look up of customer addresses formatted nicely.
-- *core/intermediate/dim_preferred_carriers.sql* - listing of each customer's preferred carrier. Would be nice for diving into delivery times/troubleshooting issues with carriers, or maybe offering customer promotions based on carrier.
+- *core/intermediate/dim_preferred_carriers.sql* - listing of each customer's preferred carrier. Would be good to have for diving into delivery times/troubleshooting issues with carriers, or maybe offering customer promotions based on carrier.
 - *core/dim_users.sql* - aggregate customer information based on what are likely to be the commonly-used fields. Incorporates various intermediate models.
 - *marketing/fact_user_orders.sql* - fact model showing summarized customer order information.
 - *product/intermediate/fact_product_best_sellers.sql* - a listing of the top 10 best selling items based on sales. I could imagine this being used for offering promotions, driving purchase orders, anticipating customer needs, etc.
