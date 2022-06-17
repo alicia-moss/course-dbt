@@ -16,16 +16,19 @@ from order_number_summarys
 ~~~
 
 **What are good indicators of a user who will likely purchase again? What about indicators of users who are likely NOT to purchase again? If you had more data, what features would you want to look into to answer this question?**
+
 **Likely to purchase again:**
 * customers who make purchases regularly (let's say every month)
 * customers with several shipping addresses (maybe these are drop-ships or stores)
 * customers who have been with us for a while and who keep making purchases (let's say they've been a customer for 5 or more years and they make at least 4 purchases a year)
+
 **Not likely to purchase again:**
 * customers who have only had one order or customers who have only had one order and used a promo
 * customers who have not placed an order in a while (let's say 1 year)
 * customers who made a complaint or cancelled and order and have not placed any orders since
 * customers who only buy one product or certain products, and these are products we no longer sell
 * customers who bought items that we've had complaints on from other customers
+
 **Additional features to look into:**
 * inventory history (product id, dates stocked, date of last PO, active/inactive indicator, velocity, etc.)
 * customer complaints (date of complaint, type, resolution, credit amount, order number,  product id, etc.)
@@ -41,8 +44,9 @@ from order_number_summarys
 - *product/intermediate/fact_product_sales.sql* - historical sales per product. if we had more data, it would make sense to filter by time frame, say, the last year. if we had price per line item, we could find out the average price we are charging for each product, including promos.
 
 **Testing**
+
 **Description of tests**
-* Assuming all primary keys must be unique and not null.
+* Testing all primary keys for uniqueness and not null.
 * Added surrogate key for stg_order_items, so that the composite key (order_id plus product_id) for this table can be tested 
 * Added test that created_at is before the current timestamp for the following tables: stg_events, stg_orders
 * Added referential integrity check on stg_users.address_id to make sure the value exists in stg_addresses.address_id
