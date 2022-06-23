@@ -9,9 +9,9 @@ ords as (SELECT * FROM {{ ref('greenery', 'stg_orders') }})
 ,
 usrs as (SELECT * FROM {{ ref('greenery', 'stg_users') }})
 ,
-addrs as (SELECT * FROM {{ ref('greenery', 'dim_addresses') }})
+addrs as (SELECT * FROM {{ ref('greenery', 'int_addresses') }})
 , 
-prefs as (SELECT * FROM {{ ref('greenery', 'dim_preferred_carriers') }})
+prefs as (SELECT * FROM {{ ref('greenery', 'int_preferred_carriers') }})
 
 select 
   usrs.user_id customer_id
