@@ -38,3 +38,5 @@ models:
       +materialized: view
     # staging:  
       # +materialized: view  -- testing only.
+
+on-run-end: "{{ grant_select(role='reporting') }}"

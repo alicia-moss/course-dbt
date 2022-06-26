@@ -52,9 +52,13 @@ This still is not exactly what I want, as my fct_product_events aggregates the d
 **Part 3: Hooks**
 **Grant the role usage access on schema**
 **Use grant macro example (change syntax to posgres)**
+Done. See macro grant_select and on-run-end in dbt_project.yml
 
 **Part 4: Packages**
 **Install and use a package**
+See project.yml and fct_promo_orders.
+Using dbt_utils.star
 
 **Part 5: Display**
 **Show (using dbt docs and the model DAGs) how you have simplified or improved a DAG using macros and/or dbt packages.**
+DAG attached to project submission.
